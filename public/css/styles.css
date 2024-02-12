@@ -1,0 +1,51 @@
+body {
+    background-color: #121212;
+    /* Dark background color */
+    color: #FFFFFF;
+    /* Text color */
+    font-family: Arial, sans-serif;
+    /* Choose your preferred font */
+}
+
+header {
+    background-color: #1F1F1F;
+    /* Darker header color */
+    padding: 20px;
+}
+
+h1,
+h2 {
+    color: #FF5733;
+    /* Red heading color */
+}
+
+nav {
+    background-color: #1F1F1F;
+    /* Darker navigation background color */
+    padding: 10px;
+}
+
+nav a {
+    color: #FFFFFF;
+    /* Navigation link color */
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+main {
+    padding: 20px;
+}
+
+article {
+    background-color: #262626;
+    /* Dark article background color */
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+footer {
+    background-color: #1F1F1F;
+    /* Darker footer background color */
+    padding: 10px;
+    text-align: center;
+}
