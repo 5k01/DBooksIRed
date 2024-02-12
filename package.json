@@ -1,0 +1,19 @@
+{
+  "name": "dbooksired",
+  "version": "1.0.0",
+  "description": "This is a site where I post the books I've read (or been reading) and maybe share my thoughts on them with a few people.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "AlonsoFV",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "pg": "^8.11.3"
+  }
+}
