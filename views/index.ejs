@@ -1,10 +1,23 @@
 <%- include('partials/header.ejs'); -%>
 
-    <article>
-        <h2>Book Title</h2>
-        <p>Author: Author's Name</p>
-        <p>Rating: 5/5</p>
-        <p>Review: Your review goes here...</p>
-    </article>
+    <% books.forEach((book)=> { %>
+        <article>
+            <h2>
+                <%= book.title %>
+            </h2>
+            <p>Author: <%= book.name %>
+            </p>
+            <p>Rating: <%= book.score %>/10</p>
+            <p>Review: <%= book.resume %>
+            </p>
+            <p>Year: <%= book.publication_year %>
+            </p>
+            <p>Pages: <%= book.pages %>
+            </p>
+            <p>ISBN: <%= book.isbn %>
+            </p>
+            <img src="https://covers.openlibrary.org/b/isbn/<%= book.isbn %>-M.jpg" />
+        </article>
+        <% }) %>
 
-    <%- include('partials/footer.ejs'); -%>
+            <%- include('partials/footer.ejs'); -%>
