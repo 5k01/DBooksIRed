@@ -6,11 +6,11 @@ CREATE TABLE books (
     isbn BIGINT UNIQUE NOT NULL, -- ISBN-13 number.
     title VARCHAR(255), -- Book's title.
     publication_year INTEGER CHECK (publication_year >= 0), -- Publication year.
-    author_id INTEGER REFERENCES authors (id) -- Author of the book.
-    ON DELETE CASCADE, -- If an author gets deleted, remove all their books too.
     pages INT NOT NULL,
     resume TEXT,
-    score INT
+    score INT,
+    author_id INTEGER REFERENCES authors (id) -- Author of the book.
+    ON DELETE CASCADE -- If an author gets deleted, remove all their books too.
 );
 
 CREATE TABLE comments(
