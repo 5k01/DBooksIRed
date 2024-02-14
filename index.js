@@ -21,9 +21,20 @@ const db = new pg.Client({
 
 db.connect();
 
+
 // HTTPs
-app.get("/", (req, res) => {
-    res.render("index.ejs");
+app.get("/", async (req, res) => {
+    let books = []
+    try {
+        const result = await db.query("SELECT * FROM books b JOIN authors a ON  b.author_id=a.id ORDER BY id DESC");
+        books = result.rows;
+    } catch (error) {
+        console.log(`Error al obtener los libros ${error}`);
+    }
+    console.log(books);
+    res.render("index.ejs", {
+        books: books || [],
+    });
 });
 
 app.listen(port, () => {
