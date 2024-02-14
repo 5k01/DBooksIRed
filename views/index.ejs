@@ -1,23 +1,45 @@
 <%- include('partials/header.ejs'); -%>
+    <div class="card-columns">
+        <% books.forEach((book)=> { %>
+            <div class="bg-dark card mb-3" style="max-width: 540px;">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="https://covers.openlibrary.org/b/isbn/<%= book.isbn %>-M.jpg" class="card-img"
+                            alt="<%= book.title %>">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <%= book.title %>
+                            </h5>
+                            <p class="card-text">
+                                <%= book.resume %>
+                            </p>
+                            <p class="card-text">
+                                Rating: <%- getStarRating(book.score) %>
+                            </p>
+                            <p class="card-text">
+                                ISBN: <%= book.isbn %>
+                            </p>
+                            <p class="card-text">
+                                Pages: <%= book.pages %>
+                            </p>
+                            <p class="card-text"><small class="text-muted">Writed in <%= book.publication_year %> by <%=
+                                            book.author_name %>
+                                </small></p>
+                            <div class="card-text row">
+                                <div class="col">
+                                    <%= book.comments %> comments
+                                </div>
+                                <div class="col-auto">
+                                    <button type="button" class="btn btn-success">Comment</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+    </div>
 
-    <% books.forEach((book)=> { %>
-        <article>
-            <h2>
-                <%= book.title %>
-            </h2>
-            <p>Author: <%= book.name %>
-            </p>
-            <p>Rating: <%= book.score %>/10</p>
-            <p>Review: <%= book.resume %>
-            </p>
-            <p>Year: <%= book.publication_year %>
-            </p>
-            <p>Pages: <%= book.pages %>
-            </p>
-            <p>ISBN: <%= book.isbn %>
-            </p>
-            <img src="https://covers.openlibrary.org/b/isbn/<%= book.isbn %>-M.jpg" />
-        </article>
-        <% }) %>
-
-            <%- include('partials/footer.ejs'); -%>
+    <%- include('partials/footer.ejs'); -%>
