@@ -81,8 +81,18 @@
                                     <%= comment.text %>
                                 </h5>
                             </div>
-                            <div class="card-footer text-muted">
-                                <%= comment.date %>
+                            <div class="col card-footer text-muted">
+                                <div class="row">
+                                    <div class="col">
+                                        <%= comment.date %>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="col-auto">
+                                            <a href="/book/<%= book.isbn %>/comment/delete/<%= comment.id %>"
+                                                type="button" class="btn btn-danger" action>Delete comment</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <% }) %>

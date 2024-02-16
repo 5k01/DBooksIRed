@@ -72,7 +72,7 @@ app.post("/addbook", async (req, res) => {
     const resume = req.body.resume;
     try {
         // Verify if the authors name already exist in BD
-        const existingAuthor = await db.query('SELECT * FROM authors WHERE lower(name)=$1', [author.toLowerCase()]);
+        let existingAuthor = await db.query('SELECT * FROM authors WHERE lower(name)=$1', [author.toLowerCase()]);
         if (existingAuthor.rowCount > 0) {
             author_id = existingAuthor.rows[0].id;
         } else {
@@ -97,6 +97,13 @@ app.post("/addcomment/:isbn", async (req, res) => {
     const text = req.body.text;
     console.log(text);
     await db.query('INSERT INTO comments(text, book_id) VALUES($1, $2)', [text, isbn]);
+    res.redirect("/comment/" + isbn);
+});
+
+app.get("/book/:isbn/comment/delete/:id", async (req, res) => {
+    const id = parseInt(req.params.id);
+    const isbn = parseInt(req.params.isbn);
+    await db.query('DELETE FROM comments WHERE id=$1', [id]);
     res.redirect("/comment/" + isbn);
 });
 

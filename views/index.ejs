@@ -1,44 +1,43 @@
 <%- include('partials/header.ejs'); -%>
     <div class="card-columns">
         <% books.forEach((book)=> { %>
-            <div class="bg-dark card mb-3" style="max-width: 540px;">
-                <div class="row no-gutters">
-                    <div class="col-md-4">
-                        <img src="https://covers.openlibrary.org/b/isbn/<%= book.isbn %>-M.jpg" class="card-img"
-                            alt="<%= book.title %>">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <%= book.title %>
-                            </h5>
-                            <p class="card-text">
-                                <%= book.resume %>
-                            </p>
-                            <p class="card-text">
-                                Rating: <%- getStarRating(book.score) %>
-                            </p>
-                            <p class="card-text">
-                                ISBN: <%= book.isbn %>
-                            </p>
-                            <p class="card-text">
-                                Pages: <%= book.pages %>
-                            </p>
-                            <p class="card-text"><small class="text-muted">Writed in <%= book.publication_year %> by <%=
-                                            book.author_name %>
-                                </small></p>
-                            <p class="card-text"><small class="text-muted">
-                                    <%= book.comments %> comments
-                                </small></p>
-                            <div class="card-text row">
-                                <div class="col mb-1">
-                                    <a href="/comment/<%= book.isbn %>" type="button" class="btn btn-success"
-                                        action>Comment</a>
-                                </div>
-                                <div class="col-auto">
-                                    <a href="/books/delete/<%= book.isbn %>" type="button" class="btn btn-danger"
-                                        action>Delete book</a>
-                                </div>
+
+            <div class="bg-dark card mb-3" style="width: 100%;">
+                <div class="col text-center">
+                    <img src="https://covers.openlibrary.org/b/isbn/<%= book.isbn %>-M.jpg" class="card-img-top mx-auto"
+                        style="width:50%; max-width: 200px;" alt="<%= book.title %>">
+                </div>
+                <div class="col">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= book.title %>
+                        </h5>
+                        <p class="card-text">
+                            <%= book.resume %>
+                        </p>
+                        <p class="card-text">
+                            Rating: <%- getStarRating(book.score) %>
+                        </p>
+                        <p class="card-text">
+                            ISBN: <%= book.isbn %>
+                        </p>
+                        <p class="card-text">
+                            Pages: <%= book.pages %>
+                        </p>
+                        <p class="card-text"><small class="text-muted">Writed in <%= book.publication_year %> by <%=
+                                        book.author_name %>
+                            </small></p>
+                        <p class="card-text"><small class="text-muted">
+                                <%= book.comments %> comments
+                            </small></p>
+                        <div class="card-text row">
+                            <div class="col mb-1">
+                                <a href="/comment/<%= book.isbn %>" type="button" class="btn btn-success"
+                                    action>Comment</a>
+                            </div>
+                            <div class="col-auto">
+                                <a href="/books/delete/<%= book.isbn %>" type="button" class="btn btn-danger"
+                                    action>Delete book</a>
                             </div>
                         </div>
                     </div>
