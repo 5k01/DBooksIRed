@@ -42,8 +42,18 @@ app.get("/books/delete/:isbn", async (req, res) => {
     res.redirect("/");
 });
 
-app.get("/comment/:isbn", (req, res) => {
+app.get("/comment/:isbn", async (req, res) => {
     const isbn = parseInt(req.params.isbn);
+    const result = await db.query("SELECT * FROM books b JOIN authors a ON b.author_id = a.id WHERE b.isbn = $1", [isbn]);
+    const book = result.rows[0];
+
+    const result2 = await db.query("SELECT  * FROM comments WHERE book_id= $1 ORDER BY date DESC", [isbn])
+    const comments = result2.rows;
+
+    res.render("comment.ejs", {
+        book: book,
+        comments: comments || []
+    })
 });
 
 app.get("/new_book", (req, res) => {
@@ -82,7 +92,13 @@ app.post("/addbook", async (req, res) => {
     res.redirect("/");
 });
 
-// app.get('/addbook', (req, res) => {
+app.post("/addcomment/:isbn", async (req, res) => {
+    const isbn = parseInt(req.params.isbn);
+    const text = req.body.text;
+    console.log(text);
+    await db.query('INSERT INTO comments(text, book_id) VALUES($1, $2)', [text, isbn]);
+    res.redirect("/comment/" + isbn);
+});
 
 app.listen(port, () => {
     console.log(`App is runngin on http://localhost:${port}/`);
