@@ -1,0 +1,49 @@
+<%- include('partials/header.ejs'); -%>
+
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <form action="/addbook" method="post">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Book Title</label>
+                    <input type="text" class="form-control form-control-lg" id="title" name="title"  required>
+                </div>
+                <div class="mb-3">
+                    <label for="author" class="form-label">Author</label>
+                    <input type="text" class="form-control form-control-lg" id="author" name="author" required>
+                </div>
+                <div class="mb-3">
+                    <label for="isbn" class="form-label">ISBN</label>
+                    <input type="number" class="form-control form-control-lg" id="isbn" name="isbn" required>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="year" class="form-label">Publication year</label>
+                            <input type="number" class="form-control form-control-lg" min="1500" max="2024" step="1"
+                                id="year" name="year" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="pages" class="form-label">Number of pages</label>
+                            <input type="number" class="form-control form-control-lg" step="1" id="pages" name="pages" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="score" class="form-label">Score</label>
+                            <input type="number" class="form-control form-control-lg" min="1" max="5" step="1"
+                                id="score" name="score" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="resume" class="form-label">Resume</label>
+                    <textarea name="resume" class="form-control form-control-lg" id="resume" cols="20"
+                        rows="6" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary form-control form-control-lg">Add new book</button>
+            </form>
+        </div>
+
+        <%- include('partials/footer.ejs'); -%>

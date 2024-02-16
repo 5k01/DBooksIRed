@@ -9,6 +9,7 @@ CREATE TABLE books (
     pages INT NOT NULL,
     resume TEXT,
     score INT,
+    date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     author_id INTEGER REFERENCES authors (id) -- Author of the book.
     ON DELETE CASCADE -- If an author gets deleted, remove all their books too.
 );

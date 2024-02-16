@@ -27,12 +27,17 @@
                             <p class="card-text"><small class="text-muted">Writed in <%= book.publication_year %> by <%=
                                             book.author_name %>
                                 </small></p>
-                            <div class="card-text row">
-                                <div class="col">
+                            <p class="card-text"><small class="text-muted">
                                     <%= book.comments %> comments
+                                </small></p>
+                            <div class="card-text row">
+                                <div class="col mb-1">
+                                    <a href="/comment/<%= book.isbn %>" type="button" class="btn btn-success"
+                                        action>Comment</a>
                                 </div>
                                 <div class="col-auto">
-                                    <button type="button" class="btn btn-success">Comment</button>
+                                    <a href="/books/delete/<%= book.isbn %>" type="button" class="btn btn-danger"
+                                        action>Delete book</a>
                                 </div>
                             </div>
                         </div>

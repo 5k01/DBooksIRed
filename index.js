@@ -26,24 +26,71 @@ db.connect();
 app.get("/", async (req, res) => {
     let books = []
     try {
-        const result = await db.query("SELECT b.isbn, b.title, b.publication_year, b.pages, b.resume, b.score, a.name AS author_name, COUNT(c.id) AS comments FROM books b JOIN authors a ON b.author_id = a.id LEFT JOIN comments c ON b.isbn = c.book_id GROUP BY b.isbn, b.title, b.publication_year, b.pages, b.resume, b.score, a.name ORDER BY b.publication_year ASC; ");
+        const result = await db.query("SELECT b.isbn, b.title, b.publication_year, b.pages, b.resume, b.score, a.name AS author_name, COUNT(c.id) AS comments FROM books b JOIN authors a ON b.author_id = a.id LEFT JOIN comments c ON b.isbn = c.book_id GROUP BY b.isbn, b.title, b.publication_year, b.pages, b.resume, b.score, a.name, b.date ORDER BY b.date DESC; ");
         books = result.rows;
     } catch (error) {
         console.log(`Error al obtener los libros ${error}`);
     }
-    console.log(books);
     res.render("index.ejs", {
         books: books || [],
     });
 });
+
+app.get("/books/delete/:isbn", async (req, res) => {
+    const isbn = parseInt(req.params.isbn);
+    await db.query('DELETE FROM books WHERE ISBN=$1', [isbn]);
+    res.redirect("/");
+});
+
+app.get("/comment/:isbn", (req, res) => {
+    const isbn = parseInt(req.params.isbn);
+});
+
+app.get("/new_book", (req, res) => {
+    res.render("new_book.ejs");
+});
+
+app.post("/addbook", async (req, res) => {
+    const author = req.body.author;
+    let author_id = 0;
+
+    const title = req.body.title;
+    const isbn = req.body.isbn;
+    const year = req.body.year;
+    const score = req.body.score;
+    const pages = req.body.pages;
+    const resume = req.body.resume;
+    try {
+        // Verify if the authors name already exist in BD
+        const existingAuthor = await db.query('SELECT * FROM authors WHERE lower(name)=$1', [author.toLowerCase()]);
+        if (existingAuthor.rowCount > 0) {
+            author_id = existingAuthor.rows[0].id;
+        } else {
+            await db.query("INSERT INTO authors(name) VALUES ($1)", [author]);
+            existingAuthor = await db.query('SELECT * FROM authors WHERE lower(name)=$1', [author.toLowerCase()]);
+            author_id = existingAuthor.rows[0].id;
+        }
+
+        await db.query("INSERT INTO books(isbn, title, publication_year, pages, resume, score, author_id) VALUES($1, $2, $3, $4, $5, $6, $7)", [
+            isbn, title, year, pages, resume, score, author_id
+        ]);
+
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error);
+    }
+    res.redirect("/");
+});
+
+// app.get('/addbook', (req, res) => {
 
 app.listen(port, () => {
     console.log(`App is runngin on http://localhost:${port}/`);
 });
 
 function getStarRating(score) {
-    const maxStars = 10;
-    const filledStars = Math.round((score / 10) * maxStars);
+    const maxStars = 5;
+    const filledStars = Math.round((score / 5) * maxStars);
     const emptyStars = maxStars - filledStars;
     const starHTML = '<span class="star">&#9733;</span>'; // Unicode for star symbol
     const emptyStarHTML = '<span class="star">&#9734;</span>'; // Unicode for empty star symbol
